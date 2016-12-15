@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
+using System.Web;
+using System.Web.Security;
 
-namespace DataAccess
+
+namespace System.DataAccess.DAL
 {
-    public class DAL
+    public class DAL: MembershipUser
     {
-        public int insert(string Name, string Email, string pwd, string cwd, string Gender, string Addr)
+
+   
+        public int createUser(string Name, string Email, string pwd, string cwd, string Gender, string Addr)
         {
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source=LC_BLR_DEV_02\\SQLEXPRESS;Initial Catalog=LManager;integrated security=true";
+           // con.ConnectionString = con;
             con.Open();
-            SqlCommand cmd = new SqlCommand("Select Email from Registration1 where Email=@Email", con);
+            SqlCommand cmd = new SqlCommand("Insert into men ", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Name", Name);
             //cmd.Parameters.AddWithValue("@Mobilenum", MN);
