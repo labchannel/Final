@@ -13,7 +13,7 @@ namespace BusinessLogic
     {
     
        
-        public int insert(Guid membershipUser, string gender, string addr, string street, string city, string state, int pin, int mN)
+        public int Balinsert(Guid membershipUser, string gender, string addr, string street, string city, string state, int pin, int mN)
         {
             DAL obj = new DAL();
 
@@ -25,6 +25,16 @@ namespace BusinessLogic
                 return 0;
              //   throw new NotImplementedException();
             }
+        }
+        public int Balinsert1(string ResName, string ResAddr, string ManagerName, string ManagerAddr, string ManagerEmail, string DateOfBirth)
+        {
+            DAL obj = new DAL();
+            return obj.insert1(ResName, ResAddr, ManagerName, ManagerAddr, ManagerEmail, DateOfBirth);
+        }
+        public int Balinsert2(string EmployeeName, string EmployeeAddress, string EmployeeEmail)
+        {
+            DAL obj = new DAL();
+            return obj.insert2(EmployeeName, EmployeeAddress, EmployeeEmail);
         }
     }
 }

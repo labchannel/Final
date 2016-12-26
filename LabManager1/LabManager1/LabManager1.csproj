@@ -44,10 +44,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BusinessLogin">
+    <Reference Include="BusinessLogin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\BusinessLogin\bin\Debug\BusinessLogin.dll</HintPath>
     </Reference>
-    <Reference Include="DataAccess">
+    <Reference Include="DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\BusinessLogin\bin\Debug\DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -108,8 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="API\StaffService.svc" />
-    <Content Include="errorpage.aspx" />
-    <Content Include="gettingservice.aspx" />
     <Content Include="Image\errorimage.png" />
     <Content Include="Manager\Managerpage.aspx" />
     <Content Include="packages.config" />
@@ -139,6 +139,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Tenanat\Employee.aspx" />
     <Content Include="Tenanat\tenantpage.aspx" />
     <Content Include="Tenanat\TenantRegistration.aspx" />
     <Content Include="Web.config">
@@ -150,20 +151,6 @@
     <Compile Include="API\IStaffService.cs" />
     <Compile Include="API\StaffService.svc.cs">
       <DependentUpon>StaffService.svc</DependentUpon>
-    </Compile>
-    <Compile Include="errorpage.aspx.cs">
-      <DependentUpon>errorpage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="errorpage.aspx.designer.cs">
-      <DependentUpon>errorpage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="gettingservice.aspx.cs">
-      <DependentUpon>gettingservice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="gettingservice.aspx.designer.cs">
-      <DependentUpon>gettingservice.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -191,6 +178,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Tenanat\Employee.aspx.cs">
+      <DependentUpon>Employee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tenanat\Employee.aspx.designer.cs">
+      <DependentUpon>Employee.aspx</DependentUpon>
     </Compile>
     <Compile Include="Tenanat\tenantpage.aspx.cs">
       <DependentUpon>tenantpage.aspx</DependentUpon>

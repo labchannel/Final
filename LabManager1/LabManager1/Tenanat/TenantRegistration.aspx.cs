@@ -46,7 +46,7 @@ namespace LabManager
             //var membershipUser = Membership.GetUser();
             var userID = (Guid)currentUser.ProviderUserKey;
             BAL obj = new BAL();
-            int n = obj.insert(userID, Gender, Addr, Street, city, state, pin, MN);
+            int n = obj.Balinsert(userID, Gender, Addr, Street, city, state, pin, MN);
             try
             {
                 if (n > 0)

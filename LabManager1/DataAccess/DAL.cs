@@ -49,31 +49,73 @@ namespace System.DataAccess.DAL
 
 
         }
-           
-            
+        public int insert1(string ResName, string ResAddr, string ManagerName, string ManagerAddr, string ManagerEmail, string DateOfBirth)
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = "Data Source=LC_BLR_DEV_02\\SQLEXPRESS;Initial Catalog=aspnetdb;integrated security=true";
+                con.Open();
+                SqlCommand cmd = new SqlCommand("GetTenant", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ResName", ResName.Trim());
+                cmd.Parameters.AddWithValue("@ResAddr", ResAddr.Trim());
+                cmd.Parameters.AddWithValue("@ManagerName", ManagerName.Trim());
+                cmd.Parameters.AddWithValue("@ManagerAddr", ManagerAddr.Trim());
+                cmd.Parameters.AddWithValue("ManagerEmail", ManagerEmail.Trim());
+                cmd.Parameters.AddWithValue("@DateOfBirth", DateOfBirth.Trim());
+                int n = cmd.ExecuteNonQuery();
+                con.Close();
+                if (n > 0)
+                {
+                    return n;
+                }
+                else
+                {
+                    return n;
+                }
 
-           
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
         }
+        public int insert2(string EmployeeName, string EmployeeAddress, string EmployeeEmail)
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = "Data Source=LC_BLR_DEV_02\\SQLEXPRESS;Initial Catalog=aspnetdb;integrated security=true";
+                con.Open();
+                SqlCommand cmd = new SqlCommand("Employee1", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@EmployeeName", EmployeeName.Trim());
+                cmd.Parameters.AddWithValue("@EmployeeAddress", EmployeeAddress.Trim());
+                cmd.Parameters.AddWithValue("@EmployeeEmail", EmployeeEmail.Trim());
+                int n = cmd.ExecuteNonQuery();
+                con.Close();
+                if (n > 0)
+                {
+                    return n;
+                }
+                else
+                {
+                    return n;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }   
+}
 
 }
 
-        /*  public MyMembershipUser CreateUser(string Name, string Email, string pwd, int Mn, string Gender, string Addr) { 
- SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["cn"].ConnectionString);
-
-     con.Open();
-     SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[aspnet_Membership]([UserId],[Password],[MobilePIN],[Email],[Gender],[Address])VALUES(?,?,?,?,?,?)) ", con);
-
-     cmd.Parameters.AddWithValue("@Name", Name);
-     cmd.Parameters.AddWithValue("@pwd", pwd);
-     cmd.Parameters.AddWithValue("@Mobilenum", Mn);
-     cmd.Parameters.AddWithValue("@Email", Email);
-     cmd.Parameters.AddWithValue("@Gender", Gender);
-     cmd.Parameters.AddWithValue("@Addr", Addr);
-     int n = cmd.ExecuteNonQuery();
-     con.Close();
-    
-
- }*/
 
 
      
