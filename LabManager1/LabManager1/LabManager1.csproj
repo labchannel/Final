@@ -17,13 +17,14 @@
     <AssemblyName>LabManager1</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,6 +83,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Channels" />
+    <Reference Include="System.ServiceModel.Routing" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -100,10 +107,22 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="API\StaffService.svc" />
+    <Content Include="errorpage.aspx" />
+    <Content Include="gettingservice.aspx" />
+    <Content Include="Image\errorimage.png" />
+    <Content Include="Manager\Managerpage.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Service References\StaffSvcRefronsvr\LabManager1.StaffSvcRefronsvr.CompositeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\StaffSvcRefronsvr\LabManager1.StaffSvcRefronsvr.StaffData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\StaffSvcRefronsvr\StaffService.wsdl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -113,10 +132,39 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Login.aspx" />
-    <Content Include="TenantRegistration.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Public\StaffPage.aspx" />
+    <None Include="Service References\StaffSvcRefronsvr\configuration91.svcinfo" />
+    <None Include="Service References\StaffSvcRefronsvr\configuration.svcinfo" />
+    <None Include="Service References\StaffSvcRefronsvr\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Tenanat\tenantpage.aspx" />
+    <Content Include="Tenanat\TenantRegistration.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\UserDefinedProfileClass.cs" />
+    <Compile Include="API\IStaffService.cs" />
+    <Compile Include="API\StaffService.svc.cs">
+      <DependentUpon>StaffService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="errorpage.aspx.cs">
+      <DependentUpon>errorpage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="errorpage.aspx.designer.cs">
+      <DependentUpon>errorpage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="gettingservice.aspx.cs">
+      <DependentUpon>gettingservice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="gettingservice.aspx.designer.cs">
+      <DependentUpon>gettingservice.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -124,14 +172,63 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Manager\Managerpage.aspx.cs">
+      <DependentUpon>Managerpage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\Managerpage.aspx.designer.cs">
+      <DependentUpon>Managerpage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TenantRegistration.aspx.cs">
+    <Compile Include="Public\StaffPage.aspx.cs">
+      <DependentUpon>StaffPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Public\StaffPage.aspx.designer.cs">
+      <DependentUpon>StaffPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\StaffSvcRefronsvr\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Tenanat\tenantpage.aspx.cs">
+      <DependentUpon>tenantpage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tenanat\tenantpage.aspx.designer.cs">
+      <DependentUpon>tenantpage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tenanat\TenantRegistration.aspx.cs">
       <DependentUpon>TenantRegistration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TenantRegistration.aspx.designer.cs">
+    <Compile Include="Tenanat\TenantRegistration.aspx.designer.cs">
       <DependentUpon>TenantRegistration.aspx</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Login.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Login.aspx.hi-IN.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Login.aspx.nr-in.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Manager\App_LocalResources\Managerpage.aspx.hi-IN.resx" />
+    <Content Include="Manager\App_LocalResources\Managerpage.aspx.resx" />
+    <Content Include="Manager\App_LocalResources\Managerpage.aspx.nr-in.resx" />
+    <Content Include="Public\App_LocalResources\StaffPage.aspx.resx" />
+    <Content Include="Public\App_LocalResources\StaffPage.aspx.hi-In.resx" />
+    <Content Include="Public\App_LocalResources\StaffPage.aspx.nr-in.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\StaffSvcRefronsvr\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
