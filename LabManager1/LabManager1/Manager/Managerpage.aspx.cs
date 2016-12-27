@@ -83,14 +83,14 @@ namespace LabManager1
 
        //     TextBox textName = (TextBox)row.FindControl("TxtEName");
             TextBox textadd = (TextBox)row.FindControl("txteaddr");
-            TextBox textEmail = (TextBox)row.FindControl("Txtemail");
+         //  Label textEmail = (Label)row.FindControl("TxtEmail");
             // TextBox textc = (TextBox)row.Cells[2].Controls[0];
             //TextBox textadd = (TextBox)row.FindControl("txtadd");
             //TextBox textc = (TextBox)row.FindControl("txtc");
             GridView1.EditIndex = -1;
             con.Open();
             //SqlCommand cmd = new SqlCommand("SELECT * FROM detail", conn);
-            SqlCommand cmd = new SqlCommand("update aspnet_Employee set EEmail='" + textEmail.Text + "',EAddress='" + textadd.Text + "'where EID='" + userid + "'", con);
+            SqlCommand cmd = new SqlCommand("update aspnet_Employee set EAddress='" + textadd.Text + "'where EID='" + userid + "'", con);
             cmd.ExecuteNonQuery();
             con.Close();
             gvbind();
@@ -289,6 +289,21 @@ namespace LabManager1
 
         }
 
-       
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            FormsAuthentication.SignOut();
+            Roles.DeleteCookie();
+            Session.Clear();
+            Response.Redirect("~/Login.aspx");
+        }
+
+        protected void Button1_Click1(object sender, EventArgs e)
+        {
+            FormsAuthentication.SignOut();
+            Roles.DeleteCookie();
+            Session.Clear();
+            Response.Redirect("~/Login.aspx");
+
+        }
     }
 }

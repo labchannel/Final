@@ -11,20 +11,32 @@ namespace BusinessLogic
 {
     public class BAL
     {
-    
-       
+
+
         public int insert(Guid membershipUser, string gender, string addr, string street, string city, string state, int pin, int mN)
         {
             DAL obj = new DAL();
 
             try {
-                return obj.insert(membershipUser,gender,addr,street,city,state,pin,mN);
+                return obj.insert(membershipUser, gender, addr, street, city, state, pin, mN);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return 0;
-             //   throw new NotImplementedException();
+                //   throw new NotImplementedException();
             }
         }
+        public int Balinsert1(string ResName, string ResAddr, string ManagerName, string ManagerAddr, string ManagerEmail, string DateOfBirth)
+        {
+            DAL obj = new DAL();
+            return obj.dalinsert1(ResName, ResAddr, ManagerName, ManagerAddr, ManagerEmail, DateOfBirth);
+        }
+        public int Balinsert2(string EmployeeName, string EmployeeAddress, string EmployeeEmail)
+        {
+            DAL obj = new DAL();
+            return obj.dalinsert2(EmployeeName, EmployeeAddress, EmployeeEmail);
+        }
+        
+
     }
 }

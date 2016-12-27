@@ -48,17 +48,23 @@ namespace LabManager
                         FormsAuthentication.SetAuthCookie(@u, true);
                        
                     }
+                
                     else
                     {
                         FormsAuthentication.SetAuthCookie(@u, true);
                     }
                    Label1.Text=Convert.ToString(Roles.GetRolesForUser(@u));
                     Session["ClientCulture"]=DropDownList1.SelectedValue;
-                    if (Roles.IsUserInRole("Administrators"))
+                    string[] a = Roles.GetRolesForUser(@u);
+                    
+
+                    Session["username"] = @u;
+                    if ((Roles.IsUserInRole("Administrators"))== true)
                     {
                         Response.Redirect("~/Tenanat/tenantpage.aspx?name=" + @u);
+                    
                     }
-                    if (Roles.IsUserInRole("Manager"))
+                  else  if  ((Roles.IsUserInRole("Manager"))== true)
                     {
                         Response.Redirect("~/manager/managerpage.aspx?name=" + @u);
                     }
