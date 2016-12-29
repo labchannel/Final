@@ -87,8 +87,7 @@ margin-left: 160px; margin-top: 85px;
                         <asp:TextBox ID="Txtemail" runat="server" ValidateRequestMode="Enabled" meta:resourcekey="TxtemailResource1"></asp:TextBox>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ValidationGroup="CodataValidation" ErrorMessage="Email is required" ForeColor="Red" ControlToValidate="Txtemail" meta:resourcekey="RequiredFieldValidator1Resource1"></asp:RequiredFieldValidator>                    
-                  <br />   <asp:RegularExpressionValidator ID="validateEmail" runat="server" ErrorMessage="Please Enter Valid Email" ControlToValidate="Txtemail" ForeColor="Red" ValidationGroup="test"
-  ValidationExpression="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" meta:resourcekey="validateEmailResource1" /><br />
+                  <br />   <asp:RegularExpressionValidator ID="validateEmail" runat="server" ErrorMessage="Please Enter Valid Email" ControlToValidate="Txtemail" ForeColor="Red" meta:resourcekey="validateEmailResource1" ValidationExpression="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" ValidationGroup="CodataValidation" /><br />
                     </FooterTemplate>
                     <ItemTemplate>
                         <asp:Label ID="Label1" runat="server" Text='<%# Eval("EEmail") %>' ></asp:Label>
@@ -111,7 +110,7 @@ margin-left: 160px; margin-top: 85px;
     <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label4" runat="server" Visible="False" meta:resourcekey="Label4Resource1"></asp:Label>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Label ID="LblResult" runat="server" meta:resourcekey="LblResultResource1"></asp:Label>
+        <asp:Label ID="LblResult" runat="server" meta:resourcekey="LblResultResource1" Font-Bold="True" Font-Size="Large" ForeColor="Red"></asp:Label>
     </div>
     </form>
 </body>

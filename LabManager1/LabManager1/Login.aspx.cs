@@ -59,12 +59,12 @@ namespace LabManager
                     
 
                     Session["username"] = @u;
-                    if ((Roles.IsUserInRole("Administrators"))== true)
+                    if ( a[0]=="Administrators")
                     {
                         Response.Redirect("~/Tenanat/tenantpage.aspx?name=" + @u);
                     
                     }
-                  else  if  ((Roles.IsUserInRole("Manager"))== true)
+                  else  if  (a[0]=="Manager")
                     {
                         Response.Redirect("~/manager/managerpage.aspx?name=" + @u);
                     }

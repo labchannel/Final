@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Net.Mail;
 using System.Web.Security;
 using System.Threading;
+using System.BusinessLogic.BAL;
 using System.Globalization;
 
 namespace LabManager1
@@ -21,20 +22,23 @@ namespace LabManager1
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["cn"].ConnectionString);
         private MembershipCreateStatus Status;
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string cultures=Session["ClientCulture"].ToString();
-           // gvbind();
-            if (!Roles.RoleExists("Manager")) {
+            string cultures = Session["ClientCulture"].ToString();
+            // gvbind();
+            if (!Roles.RoleExists("Manager"))
+            {
                 Roles.CreateRole("Manager");
             }
             if (Roles.IsUserInRole("Manager"))
             {
-                if (!Page.IsPostBack) { 
+                if (!Page.IsPostBack)
+                {
                     lbUserName.Text = Request.QueryString["name"];
-                   gvbind();}
+                    gvbind();
+                }
                 if (!Roles.RoleExists("Employee"))
                 {
                     Roles.CreateRole("Employee");
@@ -45,24 +49,31 @@ namespace LabManager1
             {
                 Response.Redirect("~/Login.aspx");
             }
-           
+
         }
 
         protected override void InitializeCulture()
         {
-            string cultures = Session["ClientCulture"].ToString();
+            if (Session["ClientCulture"] == null)
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+            else
+            {
+                string cultures = Session["ClientCulture"].ToString();
 
 
 
-            string selectedLanguage = Session["ClientCulture"].ToString();
+                string selectedLanguage = Session["ClientCulture"].ToString();
                 UICulture = selectedLanguage;
                 Culture = selectedLanguage;
 
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(selectedLanguage);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedLanguage);
 
-            
-            base.InitializeCulture();
+
+                base.InitializeCulture();
+            }
         }
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -81,43 +92,43 @@ namespace LabManager1
             GridViewRow row = (GridViewRow)GridView1.Rows[e.RowIndex];
             Label lblID = (Label)row.FindControl("LblID");
 
-       //     TextBox textName = (TextBox)row.FindControl("TxtEName");
+            //     TextBox textName = (TextBox)row.FindControl("TxtEName");
             TextBox textadd = (TextBox)row.FindControl("txteaddr");
-         //  Label textEmail = (Label)row.FindControl("TxtEmail");
+            //  Label textEmail = (Label)row.FindControl("TxtEmail");
             // TextBox textc = (TextBox)row.Cells[2].Controls[0];
             //TextBox textadd = (TextBox)row.FindControl("txtadd");
             //TextBox textc = (TextBox)row.FindControl("txtc");
             GridView1.EditIndex = -1;
-            con.Open();
-            //SqlCommand cmd = new SqlCommand("SELECT * FROM detail", conn);
-            SqlCommand cmd = new SqlCommand("update aspnet_Employee set EAddress='" + textadd.Text + "'where EID='" + userid + "'", con);
-            cmd.ExecuteNonQuery();
-            con.Close();
+            BAL uiobj = new BAL();
+            int n = uiobj.grdupd(textadd.Text, userid);
+            try
+            {
+                if (n > 0)
+                {
+                    LblResult.Text = "updated Successfully";
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
             gvbind();
         }
 
         private void gvbind()
         {
-            int results=0;
-            con.Open();
+
+            BAL uiobj = new BAL();
+
+
             string name = Request.QueryString["name"];
             Session["name"] = name;
-           SqlCommand cmd = new SqlCommand("SELECT mRID FROM aspnet_manager where MName='" + name + "'", con);
-            SqlDataReader myReader = cmd.ExecuteReader();
-            while (myReader.Read())
-            {
-              results = Convert.ToInt32(myReader.GetValue(0).ToString());
-            }
-            int @mrid = results;
-           // int @mrid = cmd.ExecuteNonQuery();
-            cmd.Dispose();
-            myReader.Close();
+            DataSet ds = uiobj.Balgrdbind(name);
 
-            SqlDataAdapter da = new SqlDataAdapter("Select EID, EName,EAddress,EEmail from aspnet_Employee where RID='"+@mrid+"'", con);
-            
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            // con.Close();
             if (ds.Tables[0].Rows.Count > 0)
             {
                 GridView1.DataSource = ds;
@@ -135,21 +146,30 @@ namespace LabManager1
                 GridView1.Rows[0].Cells[0].Text = "No Records Found";
             }
 
-            con.Close();
 
 
         }
 
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-         //   int userid = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString());
-            int @id =Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString());
+
+            int @id = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString());
             Label lbUserName = (Label)GridView1.Rows[e.RowIndex].FindControl("EName");
-            SqlCommand cmd = new SqlCommand("Delete from aspnet_Employee where EID=@id", con);
-            con.Open();
-            cmd.Parameters.Add("@id", SqlDbType.Int, 32).Value = @id;
-            cmd.ExecuteNonQuery();
-            con.Close();
+            BAL obj = new BAL();
+            int n = obj.BALgrddel(@id);
+            try
+            {
+                if (n > 0)
+                {
+                    LblResult.Text = "Deleted Successfully";
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             gvbind();
             LblResult.Text = lbUserName + "Deleted Successfully";
         }
@@ -164,28 +184,21 @@ namespace LabManager1
         {
             if (e.CommandName.Equals("AddNew"))
             {
-                
+
                 if (IsValid)
                 {
-                    int results = 0;
-                    // int results;
+
+
                     string name = Request.QueryString["name"];
                     Session["name"] = name;
-                    con.Open();
-                    SqlCommand cmdR = new SqlCommand("SELECT mRID FROM aspnet_manager where MName='" + name + "'", con);
-                    SqlDataReader myReader = cmdR.ExecuteReader();
-                    while (myReader.Read())
-                    {
-                        results = Convert.ToInt32(myReader.GetValue(0).ToString());
-                    }
-                    int mrid = results;
-                    // int @mrid = cmd.ExecuteNonQuery();
-                    cmdR.Dispose();
-                    myReader.Close();
-                    con.Close();
+                    BAL grdnewobj = new BAL();
+
+
+                    int mrid = grdnewobj.balgrdnewsel(name);
+
 
                     GridViewRow row = (GridViewRow)GridView1.FooterRow;
-                    // Label lblID = (Label)row.FindControl("LblID");
+
 
                     TextBox textName = (TextBox)row.FindControl("TxtFEName");
                     TextBox textadd = (TextBox)row.FindControl("TxtFAddress");
@@ -194,48 +207,79 @@ namespace LabManager1
                     string email = textEmail.Text;
                     con.Open();
                     var password = passwordgen();
+
+
                     MembershipCreateStatus UserCreateStatus;
                     MembershipUser uu = Membership.CreateUser(Name, password, email, "1", "1", true, out UserCreateStatus);
-                    if ((UserCreateStatus==MembershipCreateStatus.DuplicateEmail)==true)
+                    try
                     {
-                        Status = MembershipCreateStatus.DuplicateEmail;
-                        LblResult.Text = Status.ToString();
 
-                    }
-                    if ((UserCreateStatus == MembershipCreateStatus.InvalidPassword)==true)
-                    {
-                        Status = MembershipCreateStatus.InvalidPassword;
-                        LblResult.Text = Status.ToString();
-
-                    }
-                    else
-                    {
-            
-                        SqlCommand cmd =
-                        new SqlCommand(
-                        "insert into aspnet_Employee(EName,EAddress,EEmail,RID) values('" + textName.Text + "','" +
-                        textadd.Text + "','" + textEmail.Text + "', @mrid)", con);
-                        cmd.Parameters.Add("@mrid", SqlDbType.Int).Value = mrid;
-                        int result = cmd.ExecuteNonQuery();
-                        cmd.Dispose();
-
-                        con.Close();
-                        if (result == 1)
+                        if ((UserCreateStatus == MembershipCreateStatus.Success) == true)
                         {
-                            gvbind();
 
-                            SendMailEmployee(Name,password,email);
-                            LblResult.ForeColor = Color.Green;
-                            LblResult.Text = textName.Text + " Details inserted successfully";
-                            Roles.AddUserToRole(Name, "Employee");
+
+                            try
+                            {
+                                BAL obj = new BAL();
+                                int result = obj.balinstemp(textName.Text, textadd.Text, textEmail.Text, mrid);
+
+                                if (result == 1)
+                                {
+                                    gvbind();
+
+                                    SendMailEmployee(Name, password, email);
+                                    LblResult.ForeColor = Color.Green;
+                                    LblResult.Text = textName.Text + " Details inserted successfully";
+                                    Roles.AddUserToRole(Name, "Employee");
+
+                                }
+                                else
+                                {
+                                    LblResult.ForeColor = Color.Red;
+                                    LblResult.Text = textName.Text + " Details not inserted";
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                LblResult.Text = "Role is already Alloted";
+                            }
+
+                            //  Response.Write("Registration Successfull");
+
+
+
+
+
+                        }
+                        else if ((UserCreateStatus == MembershipCreateStatus.DuplicateEmail) == true)
+                        {
+
+                            LblResult.Text = "This Email is already Exists. Please Enter Unique Email Id";
+
+
+                        }
+                        else if ((UserCreateStatus == MembershipCreateStatus.DuplicateUserName) == true)
+                        {
+
+                            LblResult.Text = "This Username is already Exists. Please Enter Unique UserName";
 
                         }
                         else
                         {
-                            LblResult.ForeColor = Color.Red;
-                            LblResult.Text = textName.Text + " Details not inserted";
+
+                            LblResult.Text = "Try Again";
                         }
+
+
+
                     }
+                    catch (Exception ex)
+                    {
+
+                        //  UserCreateStatus = MembershipCreateStatus.ProviderError;
+                        LblResult.Text = "Already Exist";
+                    }
+
                 }
             }
         }
@@ -257,9 +301,9 @@ namespace LabManager1
                 passwordString += temp;
             }
             return passwordString;
-           // txtpassword.Text = passwordString;
+            // txtpassword.Text = passwordString;
         }
-        public void SendMailEmployee(string name, string password,string email)
+        public void SendMailEmployee(string name, string password, string email)
         {
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("priyankas@labchannel.net");
@@ -267,7 +311,7 @@ namespace LabManager1
             mail.To.Add(email);
             mail.IsBodyHtml = true;
             mail.Subject = "Email Sent";
-            mail.Body = "You have Successfully registered.Yours Username is "+ name +" and your password is "+ password +" ."  ;
+            mail.Body = "You have Successfully registered.Yours Username is " + name + " and your password is " + password + " .";
 
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.UseDefaultCredentials = false;
@@ -283,7 +327,7 @@ namespace LabManager1
             }
             catch (SmtpException ex)
             {
-               // txtEmail.Text = ex.Message;
+                // txtEmail.Text = ex.Message;
             }
             ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Email has been sent')", true);
 

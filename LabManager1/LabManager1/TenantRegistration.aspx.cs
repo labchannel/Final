@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BusinessLogic;
+using System.BusinessLogic.BAL;
 using System.DataAccess;
 using System.Web.Security;
 using System.Net.Mail;
@@ -19,13 +19,24 @@ namespace LabManager
             {
                 Roles.CreateRole("Administrators");
             }
+            string ln=null;
+            ln = Convert.ToString(Session["name"]);
+            if (ln.Equals("portaladmin"))
+            {
+
+            }
+            else
+            {
+                Response.Redirect("~/errorpage.aspx");
+
+            }
 
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             string Name = TextBoxUN.Text;
-            int MN = Convert.ToInt32(TxtMbl.Text);
+            string MN = TxtMbl.Text;
             string Email = txtEmail.Text;
             string pwd = txtpwd.Text;
             string cwd = txtconfirmPWD.Text;
@@ -36,30 +47,54 @@ namespace LabManager
             string state = TxtState.Text;
             int pin = Convert.ToInt32(TeXtZipCode.Text);
             MembershipCreateStatus UserCreateStatus;
-
+            MembershipCreateStatus status;
 
             //var guid = Guid.NewGuid();
             MembershipUser uu = Membership.CreateUser(Name, pwd, Email, "1", "1", true, out UserCreateStatus);
-            Roles.AddUserToRole(Name, "Administrators");
+          
             var currentUser = Membership.GetUser(Name);
 
             //var membershipUser = Membership.GetUser();
             var userID = (Guid)currentUser.ProviderUserKey;
             BAL obj = new BAL();
-            int n = obj.insert(userID, Gender, Addr, Street, city, state, pin, MN);
+            int n = obj.balCreateTenant(userID, Gender, Addr, Street, city, state, pin, MN);
             try
             {
                 if (n > 0)
                 {
 
-                    UserCreateStatus = MembershipCreateStatus.Success;
-
-                    Label1.Text = "Registration Successfull";
-                    sendmail(Email);
-                    //  Response.Write("Registration Successfull");
+                    if ((UserCreateStatus == MembershipCreateStatus.Success) == true)
+                    {
 
 
+                        try
+                        {
+                            Roles.AddUserToRole(Name, "Administrators");
+                        }
+                        catch (Exception ex)
+                        {
+                            Label1.Text = "Role is already Alloted";
+                        }
+                        Label1.Text = "Registration Successfull";
+                        sendmail(Email);
+                        //  Response.Write("Registration Successfull");
 
+
+
+
+                    }
+                }
+                else if ((UserCreateStatus == MembershipCreateStatus.DuplicateEmail) == true)
+                {
+                    status = MembershipCreateStatus.DuplicateEmail;
+                    Label1.Text = "This Email is already Exists. Please Enter Unique Email Id";
+
+
+                }
+                else if ((UserCreateStatus == MembershipCreateStatus.DuplicateUserName) == true)
+                {
+                    status = MembershipCreateStatus.DuplicateUserName;
+                    Label1.Text = "This Username is already Exists. Please Enter Unique UserName";
 
                 }
                 else
@@ -67,6 +102,9 @@ namespace LabManager
                     UserCreateStatus = MembershipCreateStatus.UserRejected;
                     Label1.Text = "Already Exist";
                 }
+
+             
+              
             }
             catch (Exception ex)
             {
@@ -105,6 +143,12 @@ namespace LabManager
                 txtEmail.Text = ex.Message;
             }
             ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Email has been sent')", true);
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("~/Login.aspx");
         }
     }
     }

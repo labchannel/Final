@@ -51,6 +51,10 @@
             height: 32px;
             width: 184px;
         }
+        .auto-style17 {
+            width: 261px;
+            height: 32px;
+        }
     </style>
 </head>
 <body>
@@ -63,7 +67,9 @@
             </tr>
     
             <tr>
-                <td class="auto-style13" style="font-family: Arial; font-size: 20px; font-weight: bold; font-style: normal; text-transform: capitalize; color: #000080" colspan="4"></td>
+                <td class="auto-style13" style="font-family: Arial; font-size: 20px; font-weight: bold; font-style: normal; text-transform: capitalize; color: #000080" colspan="4">
+                    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="click to log out" />
+                </td>
             </tr>
     
             <tr>
@@ -73,7 +79,7 @@
                     <asp:TextBox ID="TextBoxUN" runat="server" Height="22px" Width="180px"></asp:TextBox>
                 </td>
                 <td class="auto-style10" style="font-variant: normal; text-transform: capitalize">
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBoxUN" ErrorMessage="please enter username" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBoxUN" ErrorMessage="please enter username" ForeColor="Red" ValidationGroup="test"></asp:RequiredFieldValidator>
                 </td>
             </tr>
 <%--        <tr>
@@ -94,8 +100,10 @@
                     <asp:TextBox ID="txtEmail" runat="server" Width="180px"></asp:TextBox>            
                 </td>
                 <td class="auto-style10" style="font-variant: normal; text-transform: capitalize">
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Email is required" ForeColor="Red" ControlToValidate="txtEmail"></asp:RequiredFieldValidator>                    
-                     <asp:RegularExpressionValidator ID="validateEmail" runat="server" ErrorMessage="Please Enter Valid Email" ControlToValidate="txtEmail" ForeColor="Red" ValidationGroup="test"
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Email is required" ForeColor="Red" ControlToValidate="txtEmail" ValidationGroup="test"></asp:RequiredFieldValidator>                    
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <br />
+                    <asp:RegularExpressionValidator ID="validateEmail" runat="server" ErrorMessage="Please Enter Valid Email" ControlToValidate="txtEmail" ForeColor="Red" ValidationGroup="test"
   ValidationExpression="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" /><br />
                 </td>
 
@@ -107,11 +115,10 @@
                     <asp:TextBox ID="txtpwd" runat="server" Width="180px" TextMode="Password"></asp:TextBox>
                 </td>
                 <td class="auto-style10" style="font-variant: normal; text-transform: capitalize">
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Password is required" ForeColor="Red" ControlToValidate="txtpwd"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Password is required" ForeColor="Red" ControlToValidate="txtpwd" ValidationGroup="test"></asp:RequiredFieldValidator>
                     <br />
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtpwd"
-ValidationExpression="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,10}$"
-ErrorMessage="password must contain minimum 8 characters,1 upper case ,1 lower case,1 numeric,1 special character" ForeColor="Red" ValidationGroup="test" />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtpwd" ErrorMessage="Password must be at least 8 characters, no more than 15 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit" Font-Bold="True" ForeColor="#FF3300" ValidationExpression="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$"></asp:RegularExpressionValidator>
+                    <br />
                 </td>
             </tr>
             <tr>
@@ -122,9 +129,9 @@ ErrorMessage="password must contain minimum 8 characters,1 upper case ,1 lower c
 
                 </td>
                 <td class="auto-style10" style="font-variant: normal; text-transform: capitalize">
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="confirm password is required" ForeColor="Red" ControlToValidate="txtconfirmPWD"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="confirm password is required" ForeColor="Red" ControlToValidate="txtconfirmPWD" ValidationGroup="test"></asp:RequiredFieldValidator>
                     <br />
-                    <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToCompare="txtpwd" ControlToValidate="txtconfirmPWD" ErrorMessage="Both passwords must be same" ForeColor="Red"></asp:CompareValidator>
+                    <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToCompare="txtpwd" ControlToValidate="txtconfirmPWD" ErrorMessage="Both passwords must be same" ForeColor="Red" ValidationGroup="test"></asp:CompareValidator>
                     <br />
                     
                 </td>
@@ -136,7 +143,7 @@ ErrorMessage="password must contain minimum 8 characters,1 upper case ,1 lower c
 
                 </td>
                 <td class="auto-style11" style="font-variant: normal; text-transform: capitalize">
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Mobile is required" ForeColor="Red" ControlToValidate="TxtMbl"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Mobile is required" ForeColor="Red" ControlToValidate="TxtMbl" ValidationGroup="test"></asp:RequiredFieldValidator>
                     <br /></td>
                 </tr>
             <tr>
@@ -151,7 +158,7 @@ ErrorMessage="password must contain minimum 8 characters,1 upper case ,1 lower c
                     </asp:DropDownList>
                 </td>
                 <td class="auto-style10" style="font-variant: normal; text-transform: capitalize">
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Select Gender" ForeColor="Red" InitialValue="0" ControlToValidate="ddlGender"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Select Gender" ForeColor="Red" InitialValue="0" ControlToValidate="ddlGender" ValidationGroup="test"></asp:RequiredFieldValidator>
                 </td>
             </tr>
          <tr>
@@ -161,7 +168,7 @@ ErrorMessage="password must contain minimum 8 characters,1 upper case ,1 lower c
                     <asp:TextBox ID="TextBoxAddr" runat="server" Height="22px" Width="170px"></asp:TextBox>
                 </td>
                 <td class="auto-style10" style="font-variant: normal; text-transform: capitalize">
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="TextBoxAddr" ErrorMessage="please enter Address" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="TextBoxAddr" ErrorMessage="please enter Address" ForeColor="Red" ValidationGroup="test"></asp:RequiredFieldValidator>
                     <br />
                 </td>
             </tr>
@@ -184,13 +191,13 @@ ErrorMessage="password must contain minimum 8 characters,1 upper case ,1 lower c
                     <br />
                 </td>
             </tr> <tr>
-                <td class="auto-style9" style="font-family: Arial; font-size: 20px; font-weight: bold; font-style: normal; text-transform: capitalize; color: #000080">&nbsp;</td>
-                <td class="auto-style14" style="font-family: Arial; font-size: 20px; font-weight: bold; font-style: normal; text-transform: capitalize; color: #000080">state</td>
-                <td class="auto-style6">
+                <td class="auto-style8" style="font-family: Arial; font-size: 20px; font-weight: bold; font-style: normal; text-transform: capitalize; color: #000080"></td>
+                <td class="auto-style16" style="font-family: Arial; font-size: 20px; font-weight: bold; font-style: normal; text-transform: capitalize; color: #000080">state</td>
+                <td class="auto-style17">
                     <asp:TextBox ID="TxtState" runat="server" Height="22px" Width="170px"></asp:TextBox>
                 </td>
-                <td class="auto-style10" style="font-variant: normal; text-transform: capitalize">
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="TxtState" ErrorMessage="please enter Address" ForeColor="Red"></asp:RequiredFieldValidator>
+                <td class="auto-style12" style="font-variant: normal; text-transform: capitalize">
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="TxtState" ErrorMessage="please enter Address" ForeColor="Red" ValidationGroup="test"></asp:RequiredFieldValidator>
                     <br />
                 </td>
             </tr> <tr>
@@ -200,7 +207,7 @@ ErrorMessage="password must contain minimum 8 characters,1 upper case ,1 lower c
                     <asp:TextBox ID="TeXtZipCode" runat="server" Height="22px" Width="170px"></asp:TextBox>
                 </td>
                 <td class="auto-style12" style="font-variant: normal; text-transform: capitalize">
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="TeXtZipCode" ErrorMessage="please enter Address" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="TeXtZipCode" ErrorMessage="please enter Address" ForeColor="Red" ValidationGroup="test"></asp:RequiredFieldValidator>
                     <br />
                 </td>
             </tr>
@@ -208,7 +215,7 @@ ErrorMessage="password must contain minimum 8 characters,1 upper case ,1 lower c
                 <td class="auto-style9" style="font-family: Arial; font-size: 20px; font-weight: bold; font-style: normal; text-transform: capitalize; color: #000080">&nbsp;</td>
                 <td class="auto-style14" style="font-family: Arial; font-size: 20px; font-weight: bold; font-style: normal; text-transform: capitalize; color: #000080">&nbsp;</td>
                 <td class="auto-style6">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" ValidationGroup="test" OnClick="btnSubmit_Click" />
                 </td>
                 <td class="auto-style10" style="font-variant: normal; text-transform: capitalize">&nbsp;</td>
             </tr>

@@ -1,4 +1,4 @@
-﻿using BusinessLogic;
+﻿using System.BusinessLogic.BAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace LabManager1.Tenanat
             string EmployeeAddress = txtEmpAddr.Text;
             string EmployeeEmail = txtEmpEmail.Text;
             BAL obj = new BAL();
-            int n = obj.Balinsert2(EmployeeName, EmployeeAddress, EmployeeEmail);
+            int n = obj.BalCreateEmpDet(EmployeeName, EmployeeAddress, EmployeeEmail);
             if (n > 0)
             {
                 Response.Write("Registration Successfull");
