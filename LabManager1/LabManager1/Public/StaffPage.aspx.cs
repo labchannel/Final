@@ -16,35 +16,46 @@ namespace LabManager1
         {
             string cultures = Session["ClientCulture"].ToString();
             lbusername.Text = Request.QueryString["name"];
+            lbusername.Text = Session["username"].ToString();
             if (Roles.IsUserInRole("Administrator"))
             {
                 lbrole.Text = "Administrator";
-
+               Button1.Visible = false;
             }
             else if (Roles.IsUserInRole("Manager"))
             {
                 lbrole.Text = "Manager";
+               // HLTenant.Visible = false;
 
             }
             else {
                 lbrole.Text = "Staff";
+               // HLMang.Visible = false;
+               Button1.Visible = false;
             }
         }
         protected override void InitializeCulture()
         {
-            string cultures = Session["ClientCulture"].ToString();
+            if (Session["ClientCulture"] == null)
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+            else
+            {
+                string cultures = Session["ClientCulture"].ToString();
 
 
 
-            string selectedLanguage = Session["ClientCulture"].ToString();
-            UICulture = selectedLanguage;
-            Culture = selectedLanguage;
+                string selectedLanguage = Session["ClientCulture"].ToString();
+                UICulture = selectedLanguage;
+                Culture = selectedLanguage;
 
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(selectedLanguage);
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedLanguage);
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(selectedLanguage);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(selectedLanguage);
 
 
-            base.InitializeCulture();
+                base.InitializeCulture();
+            }
         }
 
         protected void bLogout_Click(object sender, EventArgs e)
@@ -54,6 +65,10 @@ namespace LabManager1
             Session.Clear();
             Response.Redirect("~/Login.aspx");
         }
-        
+
+        protected void Button1_Click(object sender, EventArgs e)
+        { string @u = Session["username"].ToString();
+            Response.Redirect("~/manager/managerpage.aspx?name=" + @u);
+        }
     }
 }

@@ -1,0 +1,6 @@
+D:\Source\Repos\Final\LabManager1\StaffWcfService\bin\StaffWcfService.dll.config
+D:\Source\Repos\Final\LabManager1\StaffWcfService\bin\StaffWcfService.dll
+D:\Source\Repos\Final\LabManager1\StaffWcfService\bin\StaffWcfService.pdb
+D:\Source\Repos\Final\LabManager1\StaffWcfService\obj\Debug\StaffWcfService.csprojResolveAssemblyReference.cache
+D:\Source\Repos\Final\LabManager1\StaffWcfService\obj\Debug\StaffWcfService.dll
+D:\Source\Repos\Final\LabManager1\StaffWcfService\obj\Debug\StaffWcfService.pdb

@@ -1,0 +1,7 @@
+D:\Source\Repos\Final\LabManager1\BusinessLogin\bin\Debug\BusinessLogin.dll
+D:\Source\Repos\Final\LabManager1\BusinessLogin\bin\Debug\BusinessLogin.pdb
+D:\Source\Repos\Final\LabManager1\BusinessLogin\obj\Debug\BusinessLogin.dll
+D:\Source\Repos\Final\LabManager1\BusinessLogin\obj\Debug\BusinessLogin.pdb
+D:\Source\Repos\Final\LabManager1\BusinessLogin\bin\Debug\DataAccess.dll
+D:\Source\Repos\Final\LabManager1\BusinessLogin\bin\Debug\DataAccess.pdb
+D:\Source\Repos\Final\LabManager1\BusinessLogin\obj\Debug\BusinessLogin.csprojResolveAssemblyReference.cache

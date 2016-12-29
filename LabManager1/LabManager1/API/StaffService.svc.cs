@@ -6,6 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.BusinessLogic.BAL;
+using System.DataAccess;
 
 using System.Text;
 

@@ -1,0 +1,5 @@
+D:\Source\Repos\Final\LabManager1\DataAccess\bin\Debug\DataAccess.dll
+D:\Source\Repos\Final\LabManager1\DataAccess\bin\Debug\DataAccess.pdb
+D:\Source\Repos\Final\LabManager1\DataAccess\obj\Debug\DataAccess.dll
+D:\Source\Repos\Final\LabManager1\DataAccess\obj\Debug\DataAccess.pdb
+D:\Source\Repos\Final\LabManager1\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache

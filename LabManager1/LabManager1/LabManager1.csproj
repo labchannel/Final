@@ -44,9 +44,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BusinessLogin">
-      <HintPath>..\BusinessLogin\bin\Debug\BusinessLogin.dll</HintPath>
-    </Reference>
     <Reference Include="DataAccess">
       <HintPath>..\BusinessLogin\bin\Debug\DataAccess.dll</HintPath>
     </Reference>
@@ -108,20 +105,29 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="API\StaffService.svc" />
+    <Content Include="css\bootstrap-theme.min.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
     <Content Include="errorpage.aspx" />
     <Content Include="gettingservice.aspx" />
     <Content Include="Image\errorimage.png" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\npm.js" />
     <Content Include="Manager\Managerpage.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="portaladmin.aspx" />
     <Content Include="Service References\StaffSvcRefronsvr\LabManager1.StaffSvcRefronsvr.CompositeType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Service References\StaffSvcRefronsvr\LabManager1.StaffSvcRefronsvr.StaffData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Masterpage.Master" />
+    <Content Include="WebForm1.aspx" />
     <None Include="Service References\StaffSvcRefronsvr\StaffService.wsdl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -139,13 +145,21 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Tenanat\Employee.aspx" />
     <Content Include="Tenanat\tenantpage.aspx" />
-    <Content Include="Tenanat\TenantRegistration.aspx" />
+    <Content Include="TenantRegistration.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
     <Content Include="App_Code\UserDefinedProfileClass.cs" />
     <Compile Include="API\IStaffService.cs" />
     <Compile Include="API\StaffService.svc.cs">
@@ -179,6 +193,20 @@
     <Compile Include="Manager\Managerpage.aspx.designer.cs">
       <DependentUpon>Managerpage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Masterpage.Master.cs">
+      <DependentUpon>Masterpage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masterpage.Master.designer.cs">
+      <DependentUpon>Masterpage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="portaladmin.aspx.cs">
+      <DependentUpon>portaladmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="portaladmin.aspx.designer.cs">
+      <DependentUpon>portaladmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Public\StaffPage.aspx.cs">
       <DependentUpon>StaffPage.aspx</DependentUpon>
@@ -192,6 +220,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Tenanat\Employee.aspx.cs">
+      <DependentUpon>Employee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tenanat\Employee.aspx.designer.cs">
+      <DependentUpon>Employee.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Tenanat\tenantpage.aspx.cs">
       <DependentUpon>tenantpage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -199,11 +234,11 @@
     <Compile Include="Tenanat\tenantpage.aspx.designer.cs">
       <DependentUpon>tenantpage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Tenanat\TenantRegistration.aspx.cs">
+    <Compile Include="TenantRegistration.aspx.cs">
       <DependentUpon>TenantRegistration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Tenanat\TenantRegistration.aspx.designer.cs">
+    <Compile Include="TenantRegistration.aspx.designer.cs">
       <DependentUpon>TenantRegistration.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -230,6 +265,13 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\StaffSvcRefronsvr\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogin\BusinessLogin.csproj">
+      <Project>{d48d39e8-ea35-4bb2-a39a-b1757067c557}</Project>
+      <Name>BusinessLogin</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
